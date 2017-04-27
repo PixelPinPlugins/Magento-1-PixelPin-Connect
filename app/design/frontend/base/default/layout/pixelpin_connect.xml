@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/**
+* Pixelpin
+*
+* NOTICE OF LICENSE
+*
+* This source file is subject to the Open Software License (OSL 3.0)
+* that is bundled with this package in the file LICENSE.txt.
+* It is also available through the world-wide-web at this URL:
+* http://opensource.org/licenses/osl-3.0.php
+* If you did not receive a copy of the license and are unable to
+* obtain it through the world-wide-web, please send an email
+* to license@magentocommerce.com so we can send you a copy immediately.
+*
+* DISCLAIMER
+*
+* Please do not edit or add to this file if you wish to upgrade
+* Magento or this extension to newer versions in the future.
+** Pixelpin *give their best to conform to
+* "non-obtrusive, best Magento practices" style of coding.
+* However,* Pixelpin *guarantee functional accuracy of
+* specific extension behavior. Additionally we take no responsibility
+* for any possible issue(s) resulting from extension usage.
+* We reserve the full right not to provide any kind of support for our free extensions.
+* Thank you for your understanding.
+*
+* @category Pixelpin
+* @package Connect
+* @author Marko Martinović <marko.martinovic@pixelpin.net>
+* @copyright Copyright (c) Pixelpin (http://pixelpin.net/)
+* @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+*/
+-->
+
+<layout>
+    <default>
+        <reference name="head">
+	        <action method="addItem"
+                ifconfig="customer/pixelpin_connect_pixelpin/enabled">
+                <type>skin_css</type>
+                <name>pixelpin_connect/pixelpin/css/button.css</name>
+            </action>
+        </reference>
+    </default>
+
+    <customer_account_login>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>pixelpin_connect/css/styles.css</name>
+            </action>
+        </reference>
+        <reference name="content">
+            <block type="pixelpin_connect/login" name="pixelpin_connect_login">
+		        <block type="pixelpin_connect/pixelpin_button" name="pixelpin_connect_pixelpin_login_button" />
+            </block>
+        </reference>
+    </customer_account_login>
+    
+    <customer_account_create>        
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>pixelpin_connect/css/styles.css</name>
+            </action>
+        </reference>
+        <reference name="customer_form_register">
+            <action method="setTemplate" >
+                <template>pixelpin/connect/customer/form/register.phtml</template>
+            </action>
+            <block type="pixelpin_connect/register" name="pixelpin_connect_register">
+		      <block type="pixelpin_connect/pixelpin_button" name="pixelpin_connect_checkout_pixelpin_button" />
+            </block>
+        </reference>        
+    </customer_account_create>    
+	
+   <pixelpin_connect_account_pixelpin translate="label">
+        <label>Customer My Account Pixelpin Connect</label>
+        <update handle="customer_account"/>
+        <reference name="head">
+            <action method="setTitle" translate="title" module="pixelpin_connect">
+                <title>Pixelpin Connect</title>
+            </action>
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>pixelpin_connect/css/styles.css</name>
+            </action>
+        </reference>
+        <reference name="my.account.wrapper">
+            <block type="pixelpin_connect/pixelpin_account" name="pixelpin_connect_pixelpin_account">
+                <block type="pixelpin_connect/pixelpin_button" name="pixelpin_connect_account_pixelpin_button" />
+            </block>
+        </reference>
+        <reference name="customer_account_navigation">
+            <action method="setActive" module="pixelpin_connect">
+                <path>connect/account/pixelpin</path>
+            </action>
+        </reference>
+    </pixelpin_connect_account_pixelpin>
+
+    <checkout_onepage_index>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>pixelpin_connect/css/styles.css</name>
+            </action>
+        </reference>
+        <reference name="checkout.onepage.login">
+            <action method="setTemplate" >
+                <template>pixelpin/connect/checkout/onepage/login.phtml</template>
+            </action>
+            <block type="pixelpin_connect/checkout" name="pixelpin_connect_checkout">
+				<block type="pixelpin_connect/pixelpin_button" name="pixelpin_connect_checkout_pixelpin_button" />
+            </block>
+        </reference>
+    </checkout_onepage_index>
+</layout>
