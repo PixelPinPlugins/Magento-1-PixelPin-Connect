@@ -36,9 +36,9 @@ class Pixelpin_Connect_Model_Pixelpin_Client
     const REDIRECT_URI_ROUTE = 'connect/pixelpin/connect';
     const REQUEST_TOKEN_URI_ROUTE = 'connect/pixelpin/request';
 
-    const OAUTH2_TOKEN_URI = 'https://logincallum.pixelpin.co.uk/connect/token';
-    const OAUTH2_AUTH_URI = 'https://logincallum.pixelpin.co.uk/connect/authorize';
-    const OAUTH2_SERVICE_URI = 'https://logincallum.pixelpin.co.uk/connect/';    
+    const OAUTH2_TOKEN_URI = 'https://login.pixelpin.io/connect/token';
+    const OAUTH2_AUTH_URI = 'https://login.pixelpin.io/connect/authorize';
+    const OAUTH2_SERVICE_URI = 'https://login.pixelpin.io/connect/';    
 
     const XML_PATH_ENABLED = 'customer/pixelpin_connect_pixelpin/enabled';
     const XML_PATH_CLIENT_ID = 'customer/pixelpin_connect_pixelpin/client_id';
