@@ -235,11 +235,20 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
                         "postal_code" => "",
                         "country" => "",
                         "region" => "",
+                        "street_address" => " ",
+                        "locality" => " ",
+                        "postal_code" => " ",
+                        "country" => " ",
+                        "region" => " ",
                     );
 
                 $jsonAddress = json_encode($address);
 
                 $userInfo->address = $jsonAddress;
+
+                Mage::getSingleton('core/session')->addNotice(
+                    $this->__('We\'ve noticed that you have no address set. We recommend adding a new address into your address book before proceeding.')
+                );
             }
 
             

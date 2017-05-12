@@ -100,6 +100,17 @@
         </reference>
     </pixelpin_connect_account_pixelpin>
 
+    <customer_account>
+        <reference name="customer_account_navigation">
+         <action method="addLink" translate="label" module="pixelpin_connect"
+                ifconfig="customer/pixelpin_connect_pixelpin/enabled">
+                <name>pixelpin_connect_pixelpin</name>
+                <path>connect/account/pixelpin</path>
+                <label>Pixelpin Connect</label>
+            </action>
+        </reference>
+    </customer_account>
+
     <checkout_onepage_index>
         <reference name="head">
             <action method="addItem">
