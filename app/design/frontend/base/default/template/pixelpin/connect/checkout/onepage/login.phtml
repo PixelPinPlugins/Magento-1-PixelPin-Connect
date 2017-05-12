@@ -69,7 +69,7 @@
         <?php endif; ?>
     </div>
     <div class="col-2">
-        <h3><?php echo $this->__('Login') ?></h3>
+        <h3><?php echo $this->__('Login Using Pixelpin') ?></h3>
         <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
         <form id="login-form" action="<?php echo $this->getPostAction() ?>" method="post">
         <fieldset>
@@ -98,7 +98,7 @@
     <div class="col-1">
         <div class="buttons-set">
             <p class="required">&nbsp;</p>
-            <button type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Continue') : $this->__('Register')) ?></span></span></button>
+            <button type="button" class="button" onclick="checkout.setMethod();"><span><span><?php echo ($this->getQuote()->isAllowedGuestCheckout() ? $this->__('Checkout Using PixelPin') : $this->__('Register')) ?></span></span></button>
         </div>
     </div>
     <div class="col-2">
@@ -110,7 +110,12 @@
     </div>
 </div>
 
-<?php echo $this->getChildHtml('pixelpin_connect_checkout')?>
+<div class="account-login">
+    <div class="page-title">
+        <h2><?php echo $this->__('Continue Checkout using PixelPin'); ?></h2>
+    </div>  
+    <?php echo $this->getChildHtml('pixelpin_connect_checkout')?>                               
+</div>
 
 <script type="text/javascript">
 //<![CDATA[

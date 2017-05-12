@@ -31,16 +31,21 @@
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 ?>
-<div class="pixelpin-connect-register">   
-    <div class="<?php echo $this->_getColSet(); ?>">
-		<?php if($this->_pixelpinEnabled()): ?>
-        <div class="<?php echo $this->_getCol(); ?> pixelpin-connect-register-pixelpin">
-            <div class="fieldset">
-                <h2 class="legend"><?php echo $this->__('Pixelpin Connect') ?></h2>
-                <p><?php echo $this->__('You can register using your Pixelpin account.') ?></p>
-                <p><?php echo $this->getChildHtml('pixelpin_connect_checkout_pixelpin_button')?></p>
+<div class="page-title">
+    <h1>Create an Account Using PixelPin</h1>
+</div>
+<div class="fieldset">
+    <div class="pixelpin-connect-register">   
+        <div class="<?php echo $this->_getColSet(); ?>">
+            <?php if($this->_pixelpinEnabled()): ?>
+            <div class="<?php echo $this->_getCol(); ?> pixelpin-connect-register-pixelpin">
+                <div class="fieldset">
+                    <h2 class="legend"><?php echo $this->__('Pixelpin Connect') ?></h2>
+                    <p class="form-instructions"><?php echo $this->__('Not registered? If you have a PixelPin account already, you can register with this website without needing to fill out those time consuming registration forms! If you don\'t have a PixelPin account, sign up to PixelPin using this button too! And use your PixelPin account on other websites in the future.'); ?></p>
+                    <p><?php echo $this->getChildHtml('pixelpin_connect_checkout_pixelpin_button')?></p>
+                </div>
             </div>
+            <?php endif; ?>
         </div>
-        <?php endif; ?>
     </div>
 </div>

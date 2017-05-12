@@ -53,7 +53,7 @@ class Pixelpin_Connect_Block_Checkout extends Mage_Core_Block_Template
             $this->numEnabled++;
         }
         
-        Mage::register('pixelpin_connect_button_text', $this->__('Continue'));
+        Mage::register('pixelpin_connect_button_text', $this->__('Checkout Using PixelPin'));
 
         $this->setTemplate('pixelpin/connect/checkout.phtml');
     }
