@@ -35,7 +35,7 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
 {
 
     public function disconnect(Mage_Customer_Model_Customer $customer) {
-        Mage::getSingleton('customer/session')->unsPixelpinConnectPixelpinUserinfo();
+        Mage::getSingleton('customer/session')->unsPixelpinSocialconnectPixelpinUserinfo();
         
         $pictureFilename = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA)
                 .DS
@@ -45,14 +45,14 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
                 .DS
                 .'pixelpin'
                 .DS                
-                .$customer->getPixelpinConnectPPid();
+                .$customer->getPixelpinSocialconnectPPid();
         
         if(file_exists($pictureFilename)) {
             @unlink($pictureFilename);
         }        
         
-        $customer->setPixelpinConnectPPid(null)
-        ->setPixelpinConnectPPtoken(null)
+        $customer->setPixelpinSocialconnectPPid(null)
+        ->setPixelpinSocialconnectPPtoken(null)
         ->save();   
     }
     
@@ -61,8 +61,8 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
             $pixelpinId,
             $token)
     {
-        $customer->setPixelpinConnectPPid($pixelpinId)
-                ->setPixelpinConnectPPtoken($token)
+        $customer->setPixelpinSocialconnectPPid($pixelpinId)
+                ->setPixelpinSocialconnectPPtoken($token)
                 ->save();
         
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
@@ -113,8 +113,8 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
             ->setEmail(       $_customer['email'])
             ->setDob(         $_customer['birth_date'])
             ->setGender(      $_customer['gender'])
-            ->setPixelpinConnectPPid($pixelpinId)
-            ->setPixelpinConnectPPtoken($token)
+            ->setPixelpinSocialconnectPPid($pixelpinId)
+            ->setPixelpinSocialconnectPPtoken($token)
             ->setPassword($customer->generatePassword(10))
             ->save();
 

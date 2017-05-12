@@ -50,7 +50,7 @@ class Pixelpin_Connect_Block_Register extends Mage_Core_Block_Template
             $this->numEnabled++;
         }
 
-        Mage::register('pixelpin_connect_button_text', $this->__('Register Using PixelPin'));
+        Mage::register('pixelpin_connect_button_text', $this->__('Register'));
 
         $this->setTemplate('pixelpin/connect/register.phtml');
     }

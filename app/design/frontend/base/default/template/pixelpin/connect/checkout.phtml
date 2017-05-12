@@ -35,8 +35,8 @@
     <div class="<?php echo $this->_getColSet(); ?>">
 		 <?php if($this->_pixelpinEnabled()): ?>
         <div class="<?php echo $this->_getCol(); ?> pixelpin-connect-checkout-pixelpin">
-            <p><?php echo $this->__('You can continue with checkout using your <strong>Pixelpin</strong> account and avoid filling in those nasty forms! If you don\'t have a PixelPin account, sign up using the same button below.') ?></p>
-            <br>
+            <h3><?php echo $this->__('Pixelpin Connect') ?></h3>
+            <p><?php echo $this->__('You can continue with checkout using your <strong>Pixelpin</strong> account.') ?></p>
             <?php echo $this->getChildHtml('pixelpin_connect_checkout_pixelpin_button')?>
         </div>
         <?php endif; ?>

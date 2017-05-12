@@ -40,9 +40,6 @@ class Pixelpin_Connect_Block_Login extends Mage_Core_Block_Template
     protected $numDescShown = 0;
     protected $numButtShown = 0;
 
-    protected $userInfo = null;
-    protected $client = null;
-
     protected function _construct() {
         parent::_construct();
 
@@ -60,14 +57,7 @@ class Pixelpin_Connect_Block_Login extends Mage_Core_Block_Template
             $this->numEnabled++;
         }
 
-        $this->client = Mage::getSingleton('pixelpin_connect/pixelpin_client');
-        if(!($this->client->isEnabled())) {
-            return;
-        }
-
-        $this->userInfo = Mage::registry('pixelpin_connect_pixelpin_userinfo');
-
-        Mage::register('pixelpin_connect_button_text', $this->__('Login Using PixelPin'));
+        Mage::register('pixelpin_connect_button_text', $this->__('Login'));
 
         $this->setTemplate('pixelpin/connect/login.phtml');
     }
@@ -90,14 +80,5 @@ class Pixelpin_Connect_Block_Login extends Mage_Core_Block_Template
     protected function _pixelpinEnabled()
     {
         return $this->clientPixelpin->isEnabled();
-    }
-
-    protected function _getButtonUrl()
-    {
-        if(empty($this->userInfo)) {
-            return $this->client->createAuthUrl();
-        } else {
-            return $this->getUrl('connect/pixelpin/disconnect');
-        }
     }
 }

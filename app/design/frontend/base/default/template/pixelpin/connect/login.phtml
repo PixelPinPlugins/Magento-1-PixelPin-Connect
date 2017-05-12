@@ -31,53 +31,26 @@
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 ?>
-<div class="account-login">
-    <div class="page-title">
-        <?php if($this->_pixelpinEnabled()): ?>
-            <h2><?php echo $this->__('Pixelpin Connect'); ?></h2>
-        <?php endif; ?>
-    </div>
-    <form class="scaffold-form">
-        <div class="col2-set">
-            <div class="col-1 new-users">
+<div class="pixelpin-connect-login">
+    <div class="account-login">
+        <div class="<?php echo $this->_getColSet(); ?> pixelpin-connect-login-upper">
+			<?php if($this->_pixelpinEnabled()): ?>
+            <div class="<?php echo $this->_getDescCol(); ?> new-users pixelpin-connect-login-upper-pixelpin">
                 <div class="content">
-                <h2>Register Using PixelPin</h2>
-                    <div class="account-register">
-                        <div class="<?php echo $this->_getColSet(); ?> pixelpin-connect-register-lower">
-                            <?php if($this->_pixelpinEnabled()): ?>
-                            <div class="pixelpin-connect-register-lower-pixelpin">
-                                <p class="form-instructions"><?php echo $this->__('Not registered? If you have a PixelPin account already, you can register with this website without needing to fill out those time consuming registration forms! If you don\'t have a PixelPin account, sign up to PixelPin using this button too! And use your PixelPin account on other websites in the future.'); ?></p>
-                                <br>
-                                <div class="clearer">
-                                    <div class="pixelpin-connect-pixelpin">
-                                        <div class="pixelpin-connect-pixelpin-inner">
-                                            <a href="<?php echo $this->escapeUrl($this->_getButtonUrl()); ?>">Register Using PixelPin</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <br>
-                            </div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
+                    <h2><?php echo $this->__('Pixelpin Connect'); ?></h2>
+                    <p><?php echo $this->__('You can login using your Pixelpin account.'); ?></p>
                 </div>
             </div>
-            <div class="col-2 registered-users">
-                <div class="content">
-                <h2>Login Using PixelPin</h2>
-                    <div class="account-login">
-                        <div class="<?php echo $this->_getColSet(); ?> pixelpin-connect-login-lower">
-                            <?php if($this->_pixelpinEnabled()): ?>
-                            <div class="pixelpin-connect-login-lower-pixelpin">
-                                <p class="form-instructions"><?php echo $this->__('If you already registered with PixelPin, you can use your picture to login to our site.'); ?></p>
-                                <br>
-                                <?php echo $this->getChildHtml('pixelpin_connect_pixelpin_login_button'); ?>
-                            </div>
-                            <?php endif; ?>
-                        </div>      
-                    </div>
-                </div>
-            </div>
+            <?php endif; ?>
         </div>
-    </form>  
+        <div class="<?php echo $this->_getColSet(); ?> pixelpin-connect-login-lower">
+			<?php if($this->_pixelpinEnabled()): ?>
+            <div class="<?php echo $this->_getButtCol(); ?> pixelpin-connect-login-lower-pixelpin">
+                <div class="buttons-set">
+                    <?php echo $this->getChildHtml('pixelpin_connect_pixelpin_login_button'); ?>
+                </div>
+            </div>
+            <?php endif; ?>
+        </div>
+    </div>
 </div>
