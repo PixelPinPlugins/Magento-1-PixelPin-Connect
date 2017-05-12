@@ -46,8 +46,8 @@ class Pixelpin_Connect_Model_Pixelpin_Userinfo
         }
 
         $customer = Mage::getSingleton('customer/session')->getCustomer();
-        if(($connectTid = $customer->getPixelpinSocialconnectPPid()) &&
-                ($connectTtoken = $customer->getPixelpinSocialconnectPPtoken())) {
+        if(($connectTid = $customer->getPixelpinConnectPPid()) &&
+                ($connectTtoken = $customer->getPixelpinConnectPPtoken())) {
 					
             $helper = Mage::helper('pixelpin_connect/pixelpin');
 

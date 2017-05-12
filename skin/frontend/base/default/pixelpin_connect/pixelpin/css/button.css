@@ -31,9 +31,10 @@
 */
 
 div.pixelpin-connect-pixelpin{
-    float: right;
+    float: left !important;
     height: 30px !important;
     background: transparent url('../images/login-button-left.png') no-repeat top left !important;
+    margin-bottom: 10px !important;
 }
 
 div.pixelpin-connect-pixelpin-inner{
@@ -42,14 +43,7 @@ div.pixelpin-connect-pixelpin-inner{
     margin-left: 30px !important;
     background: transparent url('../images/login-button-inner.png') repeat-x top left !important;
     padding: 0 5px !important;
-    text-shadow: 1px 1px #00a1c4;
-}
-
-div.pixelpin-connect-pixelpin-right{
-    float: left !important;
-    height: 30px !important;
-    width: 3px !important;
-    background: transparent url('../images/login-button-right.png') no-repeat top left !important;
+    text-shadow: 1px 1px #000000;
 }
 
 div.pixelpin-connect-pixelpin-inner a{
