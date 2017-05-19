@@ -67,6 +67,143 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
     }
+
+    public function updateUserInfo(
+            $pixelpinId,
+            $token,
+            $email,
+            $given_name,
+            $family_name,
+            $gender,
+            $birthdate)
+    {
+
+        $_customer = array (
+            'firstname'         => $given_name,
+            'lastname'          => $family_name,
+            'email'             => $email,
+            'birth_date'        => $birthdate,
+            'gender'            => $gender,
+        );
+
+        $websiteId = Mage::app()->getWebsite()->getId();
+        $store     = Mage::app()->getStore();
+
+        $customer = Mage::getModel('customer/customer');
+
+        $customer->setWebsiteId($websiteId);
+        $customer->loadByEmail($_customer['email']);
+
+        if($customer->getId()){
+            $customer->setWebsiteId($websiteId)
+            ->setStore($store)
+            ->setFirstname(   $_customer['firstname'])
+            ->setLastname(    $_customer['lastname'])
+            ->setEmail(       $_customer['email'])
+            ->setDob(         $_customer['birth_date'])
+            ->setGender(      
+                    Mage::getResourceModel('customer/customer')
+                    ->getAttribute('gender')
+                    ->getSource()
+                    ->getOptionId($_customer['gender'])
+            )
+            ->save();
+        }
+
+        $customer->setConfirmation(null);
+        $customer->save();
+    }
+
+    public function updateUserInfoOnSignIn(
+            $email,
+            $given_name,
+            $family_name,
+            $gender,
+            $birthdate,
+            $pixelpinId,
+            $token
+        )
+    {
+        $jsonAddress = $address;
+
+        $decodedAddress = json_decode($jsonAddress);
+        
+        $countryID = strtoupper($decodedAddress->country);
+
+        $_customer = array (
+            'firstname'         => $given_name,
+            'lastname'          => $family_name,
+            'email'             => $email,
+            'birth_date'        => $birthdate,
+            'gender'            => $gender,
+            // billing address
+            'street'            => $decodedAddress->street_address,
+            'street_address'    => '',
+            'address_info'      => '',
+            'city'              => $decodedAddress->locality,
+            'postcode'          => $decodedAddress->postal_code,
+            'country_id'        => $countryID,
+            'region'            => $decodedAddress->region,
+            'telephone'         => $phone_number,
+            'fax'               => '',
+        );
+
+        $websiteId = Mage::app()->getWebsite()->getId();
+        $store     = Mage::app()->getStore();
+
+        $customer = Mage::getModel('customer/customer');
+
+        $customer->setWebsiteId($websiteId);
+        $customer->loadByEmail($_customer['email']);
+
+        if($customer->getId()){
+            $customer->setWebsiteId($websiteId)
+                ->setStore($store)
+                ->setFirstname(   $_customer['firstname'])
+                ->setLastname(    $_customer['lastname'])
+                ->setEmail(       $_customer['email'])
+                ->setDob(         $_customer['birth_date'])
+                ->setGender(      
+                    Mage::getResourceModel('customer/customer')
+                        ->getAttribute('gender')
+                        ->getSource()
+                        ->getOptionId($_customer['gender'])
+                )
+                ->setPixelpinConnectPPid($pixelpinId)
+                ->setPixelpinConnectPPtoken($token)
+                ->setPassword($customer->generatePassword(10))
+                ->save();
+
+            $customer->setConfirmation(null);
+            $customer->save();
+
+            if(empty($decodedAddress->street_address)) {
+                    
+            }
+            else
+            {
+            
+                $customAddress   = Mage::getModel('customer/address');
+                $customAddress->setCustomerId($customer->getId())
+                              ->setFirstname($customer->getFirstname())
+                              ->setLastname($customer->getLastname())
+                              ->setCountryId($_customer['country_id'])
+                              ->setStreet($_customer['street'])
+                              ->setPostcode($_customer['postcode'])
+                              ->setCity($_customer['city'])
+                              ->setRegion($_customer['region'])
+                              ->setTelephone($_customer['telephone'])
+                              ->setIsDefaultBilling('1')
+                              ->setIsDefaultShipping('1')
+                              ->setSaveInAddressBook('1');
+                $customAddress->save();
+            
+            }
+        }
+
+
+        Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);        
+    }
     
     public function connectByCreatingAccount(
             $email,
@@ -82,6 +219,8 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         $jsonAddress = $address;
 
         $decodedAddress = json_decode($jsonAddress);
+		
+		$countryID = strtoupper($decodedAddress->country);
 
         $_customer = array (
             'firstname'         => $given_name,
@@ -95,7 +234,7 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
             'address_info'      => '',
             'city'              => $decodedAddress->locality,
             'postcode'          => $decodedAddress->postal_code,
-            'country_id'        => $decodedAddress->country,
+            'country_id'        => $countryID,
             'region'            => $decodedAddress->region,
             'telephone'         => $phone_number,
             'fax'               => '',
@@ -112,7 +251,12 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
             ->setLastname(    $_customer['lastname'])
             ->setEmail(       $_customer['email'])
             ->setDob(         $_customer['birth_date'])
-            ->setGender(      $_customer['gender'])
+            ->setGender(      
+					Mage::geResourceModel('customer/customer')
+					->getAttribute('gender')
+					->getSource()
+					->getOptionId($_customer['gender'])
+			)
             ->setPixelpinConnectPPid($pixelpinId)
             ->setPixelpinConnectPPtoken($token)
             ->setPassword($customer->generatePassword(10))
@@ -121,20 +265,28 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         $customer->setConfirmation(null);
         $customer->save();
 
-        $customAddress   = Mage::getModel('customer/address');
-        $customAddress->setCustomerId($customer->getId())
-                      ->setFirstname($customer->getFirstname())
-                      ->setLastname($customer->getLastname())
-                      ->setCountryId($_customer['country_id'])
-                      ->setStreet($_customer['street'])
-                      ->setPostcode($_customer['postcode'])
-                      ->setCity($_customer['city'])
-                      ->setRegion($_customer['region'])
-                      ->setTelephone($_customer['telephone'])
-                      ->setIsDefaultBilling('1')
-                      ->setIsDefaultShipping('1')
-                      ->setSaveInAddressBook('1');
-        $customAddress->save();
+		if(empty($decodedAddress->street_address)) {
+                
+        }
+        else
+        {
+		
+			$customAddress   = Mage::getModel('customer/address');
+			$customAddress->setCustomerId($customer->getId())
+						  ->setFirstname($customer->getFirstname())
+						  ->setLastname($customer->getLastname())
+						  ->setCountryId($_customer['country_id'])
+						  ->setStreet($_customer['street'])
+						  ->setPostcode($_customer['postcode'])
+						  ->setCity($_customer['city'])
+						  ->setRegion($_customer['region'])
+						  ->setTelephone($_customer['telephone'])
+						  ->setIsDefaultBilling('1')
+						  ->setIsDefaultShipping('1')
+						  ->setSaveInAddressBook('1');
+			$customAddress->save();
+		
+		}
 
 
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);            

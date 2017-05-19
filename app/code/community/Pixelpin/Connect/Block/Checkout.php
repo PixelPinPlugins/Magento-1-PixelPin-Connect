@@ -44,8 +44,6 @@ class Pixelpin_Connect_Block_Checkout extends Mage_Core_Block_Template
 
 		$this->clientPixelpin = Mage::getSingleton('pixelpin_connect/pixelpin_client');
 
-		$this->clientPixelpin = Mage::getSingleton('pixelpin_connect/pixelpin_client');
-
         if( !$this->_pixelpinEnabled())
             return;
 		

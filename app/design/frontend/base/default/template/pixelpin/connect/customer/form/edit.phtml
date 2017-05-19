@@ -1,0 +1,80 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Create account form template
+ *
+ * @var $this Mage_Customer_Block_Form_Register
+ */
+?>
+<?php if($this->_userDataEnabled()): ?>
+<div class="account-login">
+    <div class="page-title">
+            <h2><?php echo $this->__('Update Account Information Using PixelPin'); ?></h2>
+    </div>
+    <form class="scaffold-form">
+    <p class="form-instructions"><?php echo $this->__('If you have registered with PixelPin and want to change your personal account information, you will need to to pres "Update your personal information at PixelPin", then sign in and change your information. Then come back here and click on "Get Your Latest Information From PixelPin". If you have forgotten your password, sign up to PixelPin, you will never need to use a password again!'); ?></p>
+        <div class="col2-set">
+            <div class="col-1 new-users">
+                <div class="content">
+                    <div class="account-register">
+                        <div class="<?php echo $this->_getColSet(); ?> pixelpin-connect-register-lower">
+                            <div class="pixelpin-connect-register-lower-pixelpin">
+                                <div class="clearer">
+                                    <div class="pixelpin-connect-pixelpin">
+                                        <div class="pixelpin-connect-pixelpin-inner">
+                                            <a href="https://login.pixelpin.io" target="Varien_External">Update Your Personal Infomation at PixelPin</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-2 registered-users">
+                <div class="content">
+                    <div class="account-login">
+                        <div class="<?php echo $this->_getColSet(); ?> pixelpin-connect-login-lower">
+                            <div class="pixelpin-connect-login-lower-pixelpin">
+                                <div class="clearer">
+                                    <div class="pixelpin-connect-pixelpin">
+                                        <div class="pixelpin-connect-pixelpin-inner">
+                                            <a href="<?php echo $this->escapeUrl($this->_getButtonUrl()); ?>">Get Your Latest Information From PixelPin</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>  
+</div>
+<?php endif; ?>

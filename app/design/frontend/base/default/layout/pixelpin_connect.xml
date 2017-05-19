@@ -111,6 +111,20 @@
         </reference>
     </customer_account>
 
+    <customer_account_edit>
+        <reference name="head">
+            <action method="addItem">
+                <type>skin_css</type>
+                <name>pixelpin_connect/css/styles.css</name>
+            </action>
+            <reference name="content">
+                <block type="pixelpin_connect/editaccount" name="pixelpin_connect_editaccount">
+                    <block type="pixelpin_connect/pixelpin_button" name="pixelpin_connect_pixelpin_login_button" />
+                </block>
+            </reference>
+        </reference>
+    </customer_account_edit>
+
     <checkout_onepage_index>
         <reference name="head">
             <action method="addItem">

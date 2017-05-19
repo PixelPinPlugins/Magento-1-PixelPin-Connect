@@ -44,6 +44,9 @@ class Pixelpin_Connect_Model_Pixelpin_Client
     const XML_PATH_CLIENT_ID = 'customer/pixelpin_connect_pixelpin/client_id';
     const XML_PATH_CLIENT_SECRET = 'customer/pixelpin_connect_pixelpin/client_secret';
 
+    const XML_PATH_USERDATAENABLED = 'customer/pixelpin_connect_pixelpin/user_data';
+    const XML_PATH_USERDATAUPDATEENABLED = 'customer/pixelpin_connect_pixelpin/user_data_update';
+
     protected $clientId = null;
     protected $clientSecret = null;
     protected $redirectUri = null;
@@ -52,12 +55,14 @@ class Pixelpin_Connect_Model_Pixelpin_Client
 
     public function __construct()
      {
-         if(($this->isEnabled = $this->_isEnabled())) {
-             $this->clientId = $this->_getClientId();
-             $this->clientSecret = $this->_getClientSecret();
-             $this->redirectUri = Mage::getModel('core/url')->sessionUrlVar(
-                 Mage::getUrl(self::REDIRECT_URI_ROUTE)
-             ); 
+        if(($this->isEnabled = $this->_isEnabled())) {
+            $this->isUserDataEnabled = $this->_isUserDataEnabled();
+            $this->isUserDataUpdateEnabled = $this->_isUserDataUpdateEnabled();
+            $this->clientId = $this->_getClientId();
+            $this->clientSecret = $this->_getClientSecret();
+            $this->redirectUri = Mage::getModel('core/url')->sessionUrlVar(
+                Mage::getUrl(self::REDIRECT_URI_ROUTE)
+            ); 
          }
             if(!empty($params['state'])) {
                 $this->state = $params['state'];
@@ -67,6 +72,16 @@ class Pixelpin_Connect_Model_Pixelpin_Client
     public function isEnabled()
     {
         return (bool) $this->isEnabled;
+    }
+
+    public function isUserDataEnabled()
+    {
+        return (bool) $this->isUserDataEnabled;
+    }
+
+    public function  isUserDataUpdateEnabled()
+    {
+        return (bool) $this->isUserDataUpdateEnabled;
     }
 
     public function getClientId()
@@ -226,6 +241,16 @@ class Pixelpin_Connect_Model_Pixelpin_Client
     protected function _isEnabled()
     {
         return $this->_getStoreConfig(self::XML_PATH_ENABLED);
+    }
+
+    protected function _isUserDataEnabled()
+    {
+        return $this->_getStoreConfig(self::XML_PATH_USERDATAENABLED);
+    }
+
+    protected function _isUserDataUpdateEnabled()
+    {
+        return $this->_getStoreConfig(self::XML_PATH_USERDATAUPDATEENABLED);
     }
 
     protected function _getClientId()

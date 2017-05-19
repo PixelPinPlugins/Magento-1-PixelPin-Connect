@@ -1,6 +1,19 @@
-Pixelpin_Connect
-====================
+Pixelpin Connect
+=============
+Pixelpin Connect Uses a slightly modified version of the OAuth 2.0 protocol to be used to authenticate users using PixelPin.
 
-Pixelpin_Connect is a Magento extension allowing your customers to login or create an account at your store using their Google, Facebook or Twitter account.
+Requirements
+------------
+* [Magento 1](https://magento.com/tech-resources/download) (1.9.*)
 
-For usage instructions and more details you can visit my [article at pixelpin.net](http://pixelpin.net/ecommerce/magento/social-connect-magento-extension/).
+Features
+--------
+* Login using passwordless authentication using pictures.
+* Built in optional two factor.
+* Users can sign in and register using PixelPin.
+* PixelPin Connect is avaliable for free!
+* Open Source.
+
+Installation Instructions
+------------
+Step-by-step Installation instructions can be found on our dedicated developer site.
