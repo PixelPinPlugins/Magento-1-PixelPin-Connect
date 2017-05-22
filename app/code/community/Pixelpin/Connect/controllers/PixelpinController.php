@@ -196,7 +196,7 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
                 // Existing connected user - login
                 $customer = $customersByPixelpinId->getFirstItem();
 
-                if($client->isUserDataUpdateEnabled())
+                if($client->isAutoUserDataEnabled())
                 {
 
                     if(empty($userInfo->gender)) {

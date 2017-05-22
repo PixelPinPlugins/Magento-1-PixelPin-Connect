@@ -56,8 +56,8 @@ class Pixelpin_Connect_Model_Pixelpin_Client
     public function __construct()
      {
         if(($this->isEnabled = $this->_isEnabled())) {
-            $this->isUserDataEnabled = $this->_isUserDataEnabled();
-            $this->isUserDataUpdateEnabled = $this->_isUserDataUpdateEnabled();
+            $this->isManualUserDataEnabled = $this->_isManualUserDataEnabled();
+            $this->isAutoUserDataEnabled = $this->_isAutoUserDataEnabled();
             $this->clientId = $this->_getClientId();
             $this->clientSecret = $this->_getClientSecret();
             $this->redirectUri = Mage::getModel('core/url')->sessionUrlVar(
@@ -74,14 +74,14 @@ class Pixelpin_Connect_Model_Pixelpin_Client
         return (bool) $this->isEnabled;
     }
 
-    public function isUserDataEnabled()
+    public function isManualUserDataEnabled()
     {
-        return (bool) $this->isUserDataEnabled;
+        return (bool) $this->isManualUserDataEnabled;
     }
 
-    public function  isUserDataUpdateEnabled()
+    public function  isAutoUserDataEnabled()
     {
-        return (bool) $this->isUserDataUpdateEnabled;
+        return (bool) $this->isAutoUserDataEnabled;
     }
 
     public function getClientId()
@@ -243,12 +243,12 @@ class Pixelpin_Connect_Model_Pixelpin_Client
         return $this->_getStoreConfig(self::XML_PATH_ENABLED);
     }
 
-    protected function _isUserDataEnabled()
+    protected function _isManualUserDataEnabled()
     {
         return $this->_getStoreConfig(self::XML_PATH_USERDATAENABLED);
     }
 
-    protected function _isUserDataUpdateEnabled()
+    protected function _isAutoUserDataEnabled()
     {
         return $this->_getStoreConfig(self::XML_PATH_USERDATAUPDATEENABLED);
     }

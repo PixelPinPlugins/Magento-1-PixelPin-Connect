@@ -176,29 +176,6 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
 
             $customer->setConfirmation(null);
             $customer->save();
-
-            if(empty($decodedAddress->street_address)) {
-                    
-            }
-            else
-            {
-            
-                $customAddress   = Mage::getModel('customer/address');
-                $customAddress->setCustomerId($customer->getId())
-                              ->setFirstname($customer->getFirstname())
-                              ->setLastname($customer->getLastname())
-                              ->setCountryId($_customer['country_id'])
-                              ->setStreet($_customer['street'])
-                              ->setPostcode($_customer['postcode'])
-                              ->setCity($_customer['city'])
-                              ->setRegion($_customer['region'])
-                              ->setTelephone($_customer['telephone'])
-                              ->setIsDefaultBilling('1')
-                              ->setIsDefaultShipping('1')
-                              ->setSaveInAddressBook('1');
-                $customAddress->save();
-            
-            }
         }
 
 
@@ -252,7 +229,7 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
             ->setEmail(       $_customer['email'])
             ->setDob(         $_customer['birth_date'])
             ->setGender(      
-					Mage::geResourceModel('customer/customer')
+					Mage::getResourceModel('customer/customer')
 					->getAttribute('gender')
 					->getSource()
 					->getOptionId($_customer['gender'])

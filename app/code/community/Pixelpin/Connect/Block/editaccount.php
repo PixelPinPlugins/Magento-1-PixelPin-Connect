@@ -107,8 +107,8 @@ class Pixelpin_Connect_Block_Editaccount extends Mage_Core_Block_Template
         }
     }
 
-    protected function _userDataEnabled()
+    protected function _isManualUserDataEnabled()
     {
-        return $this->clientPixelpin->isUserDataEnabled();
+        return $this->clientPixelpin->isManualUserDataEnabled();
     }
 }
