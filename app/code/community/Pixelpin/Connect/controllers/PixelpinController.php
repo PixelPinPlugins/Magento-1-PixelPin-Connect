@@ -140,6 +140,37 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
                             $this->__('Your Pixelpin account is already connected to one of our store accounts.')
                         );
 
+                    return;
+                }
+
+                $isEditingAccount = Mage::getSingleton('checkout/session')->getIsEditingAccount();
+
+                if($isEditingAccount == '1'){
+                     $customer = Mage::getSingleton('customer/session')->getCustomer();
+
+                     $isEditingAccount = '0';
+
+                    if(empty($userInfo->gender)) {
+                        $userInfo->gender = '';
+                    }
+
+                    if(empty($userInfo->birthdate)) {
+                        $userInfo->birthdate = '';
+                    }
+
+                    Mage::helper('pixelpin_connect/pixelpin')->updateUserInfo(
+                        $userInfo->sub,
+                        $token,
+                        $userInfo->email,
+                        $userInfo->given_name,
+                        $userInfo->family_name,
+                        $userInfo->gender,
+                        $userInfo->birthdate
+                    );
+
+                    Mage::getSingleton('core/session')->addSuccess(
+                        $this->__('Your Pixelpin account infomation has now been updated.')
+                    );
 
                     return;
                 }
@@ -154,7 +185,7 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
                 );
 
                 Mage::getSingleton('core/session')->addSuccess(
-                    $this->__('Your Pixelpin account is now connected to your store account. You can now login using our Pixelpin Connect button or using store account credentials you will receive to your email address.')
+                    $this->__('Your Pixelpin account is now connected to your store account. You can now login using our Pixelpin Connect button.')
                 );
 
 
@@ -164,6 +195,30 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
             if($customersByPixelpinId->count()) {
                 // Existing connected user - login
                 $customer = $customersByPixelpinId->getFirstItem();
+
+                if($client->isAutoUserDataEnabled())
+                {
+
+                    if(empty($userInfo->gender)) {
+                        $userInfo->gender = '';
+                    }
+
+                    if(empty($userInfo->birthdate)) {
+                        $userInfo->birthdate = '';
+                    }
+
+                    
+                    Mage::helper('pixelpin_connect/pixelpin')->updateUserInfoOnSignIn(
+                        $userInfo->email,
+                        $userInfo->given_name,
+                        $userInfo->family_name,
+                        $userInfo->gender,
+                        $userInfo->birthdate,
+                        $userInfo->sub,
+                        $token
+                    );
+
+                }
 
                 Mage::helper('pixelpin_connect/pixelpin')->loginByCustomer($customer);
 
@@ -235,20 +290,11 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
                         "postal_code" => "",
                         "country" => "",
                         "region" => "",
-                        "street_address" => " ",
-                        "locality" => " ",
-                        "postal_code" => " ",
-                        "country" => " ",
-                        "region" => " ",
                     );
 
                 $jsonAddress = json_encode($address);
 
                 $userInfo->address = $jsonAddress;
-
-                Mage::getSingleton('core/session')->addNotice(
-                    $this->__('We\'ve noticed that you have no address set. We recommend adding a new address into your address book before proceeding.')
-                );
             }
 
             
@@ -265,7 +311,7 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
             );
 
             Mage::getSingleton('core/session')->addSuccess(
-                $this->__('Your Pixelpin account is now connected to your new user account at our store. Now you can login using our Pixelpin Connect button or using store account credentials you will receive to your email address.')
+                $this->__('Your Pixelpin account is now connected to your new user account at our store. Now you can login using our Pixelpin Connect button.')
             );
         }
     }

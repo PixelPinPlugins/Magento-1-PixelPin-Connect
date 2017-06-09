@@ -48,10 +48,10 @@ class Pixelpin_Connect_Block_Login extends Mage_Core_Block_Template
 
         $this->clientPixelpin = Mage::getSingleton('pixelpin_connect/pixelpin_client');
 
-	if ( $this->clientPixelpin === null )
-    {
-	
-    }
+    	if ( $this->clientPixelpin === null )
+        {
+    	
+        }
 
         if( !$this->_pixelpinEnabled()) 
             return;
