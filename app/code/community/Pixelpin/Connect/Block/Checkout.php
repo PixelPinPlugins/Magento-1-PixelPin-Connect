@@ -61,7 +61,7 @@ class Pixelpin_Connect_Block_Checkout extends Mage_Core_Block_Template
     protected function _construct() {
         parent::_construct();
 
-		$this->$client = Mage::getSingleton('pixelpin_connect/pixelpin_client');
+		$this->client = Mage::getSingleton('pixelpin_connect/pixelpin_client');
 
         if( !$this->_pixelpinEnabled())
             return;
@@ -108,6 +108,6 @@ class Pixelpin_Connect_Block_Checkout extends Mage_Core_Block_Template
 	 */
 	protected function _pixelpinEnabled()
     {
-        return $this->$client->isEnabled();
+        return $this->client->isEnabled();
     }
 }
