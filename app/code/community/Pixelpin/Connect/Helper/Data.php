@@ -26,13 +26,19 @@
 *
 * @category Pixelpin
 * @package Connect
-* @author Marko Martinović <marko.martinovic@pixelpin.net>
-* @copyright Copyright (c) Pixelpin (http://pixelpin.net/)
+* @original-author Marko Martinović <marko.martinovic@inchoo.net>
+* @author Callum@PixelPin <callum@pixelpin.co.uk>
+* @copyright Copyright (c) Pixelpin (https://www.pixelpin.co.uk/)
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 
 class Pixelpin_Connect_Helper_Data extends Mage_Core_Helper_Abstract
 {
+	/**
+	 * When Called, redirects user to a 404 page.
+	 * 
+	 * @param type $frontController
+	 */
     public function redirect404($frontController)
     {
         $frontController->getResponse()

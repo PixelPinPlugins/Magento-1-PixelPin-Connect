@@ -26,16 +26,33 @@
 *
 * @category Pixelpin
 * @package Connect
-* @author Marko Martinović <marko.martinovic@pixelpin.net>
-* @copyright Copyright (c) Pixelpin (http://pixelpin.net/)
+* @original-author Marko Martinović <marko.martinovic@inchoo.net>
+* @author Callum@PixelPin <callum@pixelpin.co.uk>
+* @copyright Copyright (c) Pixelpin (https://www.pixelpin.co.uk/)
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 
 class Pixelpin_Connect_Block_Pixelpin_Account extends Mage_Core_Block_Template
 {
+	/**
+	 * /Model/Pixelpin/Client.php
+	 * 
+	 * @var $client 
+	 */
     protected $client = null;
+	
+	/**
+	 * /Model/Pixelpin/Userinfo.php
+	 * 
+	 * @var $userInfo 
+	 */
     protected $userInfo = null;
 
+	/**
+	 * Constructor. Set variables and template.
+	 * 
+	 * @return bool 
+	 */
     protected function _construct() {
         parent::_construct();
 
@@ -48,40 +65,50 @@ class Pixelpin_Connect_Block_Pixelpin_Account extends Mage_Core_Block_Template
 
         $this->setTemplate('pixelpin/connect/pixelpin/account.phtml');
     }
-
+	
+	/**
+	 * Checks if the user's info exists.
+	 * 
+	 * Used in the setTemplate. 
+	 * 
+	 * @return bool
+	 */
     protected function _hasUserInfo()
     {
         return (bool) $this->userInfo;
     }
-
+	
+	/**
+	 * Gets the user's sub id.
+	 * 
+	 * Used in the setTemplate.
+	 * 
+	 * @return string $pixelpinId 
+	 */
     protected function _getPixelpinId()
     {
         return $this->userInfo->sub;
     }
-
-    protected function _getStatus()
-    {
-        /*return '<a href="'.sprintf('https://pixelpin.com/%s', $this->userInfo->screen_name).'" target="_blank">'.
-                    $this->htmlEscape($this->userInfo->firstName).'</a>';*/
-		return $this->htmlEscape($this->userInfo->given_name);
-    }
-
+	
+	/**
+	 * Gets the user's email.
+	 * 
+	 * Used in the setTemplate
+	 * 
+	 * @return string $email
+	 */
     protected function _getEmail()
     {
         return $this->userInfo->email;
     }
 
-    protected function _getPicture()
-    {
-        /*if(!empty($this->userInfo->picture)) {
-            return Mage::helper('pixelpin_connect/pixelpin')
-                    ->getProperDimensionsPictureUrl($this->userInfo->id,
-                            $this->userInfo->picture->data->url);
-        }*/
-
-        return null;
-    }
-
+	/**
+	 * Gets the user's first name.
+	 * 
+	 * Used in the setTemplate
+	 * 
+	 * @return string $firstName
+	 */
     protected function _getName()
     {
         return $this->userInfo->given_name;

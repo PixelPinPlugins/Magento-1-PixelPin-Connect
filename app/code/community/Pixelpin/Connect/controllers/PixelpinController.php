@@ -26,15 +26,23 @@
 *
 * @category Pixelpin
 * @package Connect
-* @author Marko Martinović <marko.martinovic@pixelpin.net>
-* @copyright Copyright (c) Pixelpin (http://pixelpin.net/)
+* @original-author Marko Martinović <marko.martinovic@inchoo.net>
+* @author Callum@PixelPin <callum@pixelpin.co.uk>
+* @copyright Copyright (c) Pixelpin (https://www.pixelpin.co.uk/)
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 
 class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Action
 {
+	/**
+	 *
+	 * @var type 
+	 */
     protected $referer = null;
 
+	/**
+	 * Connect Action.
+	 */
     public function connectAction()
     {
         try {
@@ -49,7 +57,10 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
             Mage::helper('pixelpin_connect')->redirect404($this);
         }
     }
-
+	
+	/**
+	 * Disconnect Action.
+	 */
     public function disconnectAction()
     {
         $customer = Mage::getSingleton('customer/session')->getCustomer();
@@ -66,7 +77,10 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
             Mage::helper('pixelpin_connect')->redirect404($this);
         }
     }
-
+	
+	/*
+	 * Disconnect Callback.
+	 */
     protected function _disconnectCallback(Mage_Customer_Model_Customer $customer) {
         $this->referer = Mage::getUrl('connect/account/pixelpin');        
         
@@ -78,6 +92,9 @@ class Pixelpin_Connect_PixelpinController extends Mage_Core_Controller_Front_Act
             );
     }
 
+	/*
+	 * Connect Callback
+	 */
     protected function _connectCallback() {
         $errorCode = $this->getRequest()->getParam('error');
         $code = $this->getRequest()->getParam('code');

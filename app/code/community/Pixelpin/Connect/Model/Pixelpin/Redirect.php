@@ -4,11 +4,12 @@ class Pixelpin_Connect_Model_Pixelpin_Redirect extends Mage_Adminhtml_Block_Syst
 
 	const REDIRECT_URI_ROUTE = 'connect/pixelpin/connect';
 
-	public function __construct()
-	{
-
-	}
-
+	/**
+	 * Generates the redirect uri for the admin to view when enabling PixelPin OpenID Connect
+	 * 
+	 * @param Varien_Data_Form_Element_Abstract $element
+	 * @return string
+	 */
 	public function _getElementHtml(Varien_Data_Form_Element_Abstract $element)
 	{
 		$this->setElement($element);

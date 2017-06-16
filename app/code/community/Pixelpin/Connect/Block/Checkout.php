@@ -26,23 +26,42 @@
 *
 * @category Pixelpin
 * @package Connect
-* @author Marko Martinović <marko.martinovic@pixelpin.net>
-* @copyright Copyright (c) Pixelpin (http://pixelpin.net/)
+* @original-author Marko Martinović <marko.martinovic@inchoo.net>
+* @author Callum@PixelPin <callum@pixelpin.co.uk>
+* @copyright Copyright (c) Pixelpin (https://www.pixelpin.co.uk/)
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 
 class Pixelpin_Connect_Block_Checkout extends Mage_Core_Block_Template
 {
-
-    protected $clientPixelpin = null;
-    
+	/**
+	 * /Model/Pixelpin/Client.php
+	 * 
+	 * @var $client 
+	 */
+    protected $client = null;
+	
+	/**
+	 *
+	 * @var int 
+	 */
     protected $numEnabled = 0;
+	
+	/**
+	 *
+	 * @var int
+	 */
     protected $numShown = 0;    
-
+	
+	/**
+	 * Constructor. Set variables and template.
+	 * 
+	 * @return bool
+	 */
     protected function _construct() {
         parent::_construct();
 
-		$this->clientPixelpin = Mage::getSingleton('pixelpin_connect/pixelpin_client');
+		$this->client = Mage::getSingleton('pixelpin_connect/pixelpin_client');
 
         if( !$this->_pixelpinEnabled())
             return;
@@ -56,18 +75,39 @@ class Pixelpin_Connect_Block_Checkout extends Mage_Core_Block_Template
         $this->setTemplate('pixelpin/connect/checkout.phtml');
     }
     
+	/**
+	 * Sets the col-set number
+	 * 
+	 * Used in the setTemplate. 
+	 * 
+	 * @return string
+	 */
     protected function _getColSet()
     {
         return 'col'.$this->numEnabled.'-set';
     }
-
+	
+	/**
+	 * Sets the col number
+	 * 
+	 * Used in the setTemplate. 
+	 * 
+	 * @return string
+	 */
     protected function _getCol()
     {
         return 'col-'.++$this->numShown;
     }    
 	
+	/**
+	 * Checks if the client is enabled
+	 * 
+	 * Used in the setTemplate
+	 * 
+	 * @return bool
+	 */
 	protected function _pixelpinEnabled()
     {
-        return $this->clientPixelpin->isEnabled();
+        return $this->client->isEnabled();
     }
 }
