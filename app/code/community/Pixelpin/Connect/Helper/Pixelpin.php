@@ -26,14 +26,19 @@
 *
 * @category Pixelpin
 * @package Connect
-* @author Marko Martinović <marko.martinovic@pixelpin.net>
-* @copyright Copyright (c) Pixelpin (http://pixelpin.net/)
+* @original-author Marko Martinović <marko.martinovic@inchoo.net>
+* @author Callum@PixelPin <callum@pixelpin.co.uk>
+* @copyright Copyright (c) Pixelpin (https://www.pixelpin.co.uk/)
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 
 class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
 {
-
+	/**
+	 * When called, it will disconnect(sign/log out) the user from the Magento website.
+	 * 
+	 * @param Mage_Customer_Model_Customer $customer
+	 */
     public function disconnect(Mage_Customer_Model_Customer $customer) {
         Mage::getSingleton('customer/session')->unsPixelpinConnectPixelpinUserinfo();
         
@@ -56,6 +61,13 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         ->save();   
     }
     
+	/**
+	 * When called, it will connect the existing user by their sub id
+	 * 
+	 * @param Mage_Customer_Model_Customer $customer
+	 * @param type $pixelpinId
+	 * @param type $token
+	 */
     public function connectByPixelpinId(
             Mage_Customer_Model_Customer $customer,
             $pixelpinId,
@@ -68,6 +80,17 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);
     }
 
+	/**
+	 * When called, it will update the existing user's information by their customer id.
+	 * 
+	 * @param type $pixelpinId
+	 * @param type $token
+	 * @param type $email
+	 * @param type $given_name
+	 * @param type $family_name
+	 * @param type $gender
+	 * @param type $birthdate
+	 */
     public function updateUserInfo(
             $pixelpinId,
             $token,
@@ -114,6 +137,17 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         $customer->save();
     }
 
+	/**
+	 * When called, it will update the existing user's information when they sign in. 
+	 * 
+	 * @param type $email
+	 * @param type $given_name
+	 * @param type $family_name
+	 * @param type $gender
+	 * @param type $birthdate
+	 * @param type $pixelpinId
+	 * @param type $token
+	 */
     public function updateUserInfoOnSignIn(
             $email,
             $given_name,
@@ -182,6 +216,19 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);        
     }
     
+	/**
+	 * When called, it will create a new user account and sign them in. 
+	 * 
+	 * @param type $email
+	 * @param type $given_name
+	 * @param type $family_name
+	 * @param type $gender
+	 * @param type $birthdate
+	 * @param type $phone_number
+	 * @param type $address
+	 * @param type $pixelpinId
+	 * @param type $token
+	 */
     public function connectByCreatingAccount(
             $email,
             $given_name,
@@ -242,13 +289,8 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         $customer->setConfirmation(null);
         $customer->save();
 
-		if(empty($decodedAddress->street_address)) {
-                
-        }
-        else
-        {
-		
-			$customAddress   = Mage::getModel('customer/address');
+		if(!empty($decodedAddress->street_address)) {
+            $customAddress   = Mage::getModel('customer/address');
 			$customAddress->setCustomerId($customer->getId())
 						  ->setFirstname($customer->getFirstname())
 						  ->setLastname($customer->getLastname())
@@ -261,14 +303,16 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
 						  ->setIsDefaultBilling('1')
 						  ->setIsDefaultShipping('1')
 						  ->setSaveInAddressBook('1');
-			$customAddress->save();
-		
-		}
-
-
+			$customAddress->save(); 
+        }
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);            
     }
     
+	/**
+	 * When called, it will sign the user in by their customer ID.
+	 * 
+	 * @param Mage_Customer_Model_Customer $customer
+	 */
     public function loginByCustomer(Mage_Customer_Model_Customer $customer)
     {
         if($customer->getConfirmation()) {
@@ -279,6 +323,12 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         Mage::getSingleton('customer/session')->setCustomerAsLoggedIn($customer);        
     }
     
+	/**
+	 * When called, it will get the user by their sub ID.
+	 * 
+	 * @param type $pixelpinId
+	 * @return type
+	 */
     public function getCustomersByPixelpinId($pixelpinId)
     {
         $customer = Mage::getModel('customer/customer');
@@ -304,6 +354,12 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         return $collection;
     }
     
+	/**
+	 * When called, it will get the user by their email.
+	 * 
+	 * @param type $email
+	 * @return type
+	 */
     public function getCustomersByEmail($email)
     {
         $customer = Mage::getModel('customer/customer');
@@ -328,53 +384,4 @@ class Pixelpin_Connect_Helper_Pixelpin extends Mage_Core_Helper_Abstract
         
         return $collection;
     }
-
-    public function getProperDimensionsPictureUrl($pixelpinId, $pictureUrl)
-    {
-        $pictureUrl = str_replace('_normal', '', $pictureUrl);
-        
-        $url = Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA)
-                .'pixelpin'
-                .'/'
-                .'connect'
-                .'/'
-                .'pixelpin'
-                .'/'                
-                .$pixelpinId;
-
-        $filename = Mage::getBaseDir(Mage_Core_Model_Store::URL_TYPE_MEDIA)
-                .DS
-                .'pixelpin'
-                .DS
-                .'connect'
-                .DS
-                .'pixelpin'
-                .DS                
-                .$pixelpinId;
-
-        $directory = dirname($filename);
-
-        if (!file_exists($directory) || !is_dir($directory)) {
-            if (!@mkdir($directory, 0777, true))
-                return null;
-        }
-
-        if(!file_exists($filename) || 
-                (file_exists($filename) && (time() - filemtime($filename) >= 3600))){
-            $client = new Zend_Http_Client($pictureUrl);
-            $client->setStream();
-            $response = $client->request('GET');
-            stream_copy_to_stream($response->getStream(), fopen($filename, 'w'));
-
-            $imageObj = new Varien_Image($filename);
-            $imageObj->constrainOnly(true);
-            $imageObj->keepAspectRatio(true);
-            $imageObj->keepFrame(false);
-            $imageObj->resize(150, 150);
-            $imageObj->save($filename);
-        }
-        
-        return $url;
-    }
-    
 }

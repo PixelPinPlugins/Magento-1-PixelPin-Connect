@@ -26,14 +26,17 @@
 *
 * @category Pixelpin
 * @package Connect
-* @author Marko Martinović <marko.martinovic@pixelpin.net>
-* @copyright Copyright (c) Pixelpin (http://pixelpin.net/)
+* @original-author Marko Martinović <marko.martinovic@inchoo.net>
+* @author Callum@PixelPin <callum@pixelpin.co.uk>
+* @copyright Copyright (c) Pixelpin (https://www.pixelpin.co.uk/)
 * @license http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
 */
 
 class Pixelpin_Connect_AccountController extends Mage_Core_Controller_Front_Action
 {
-    
+    /** 
+	 * Account Controller PreDispatch
+	 */ 
     public function preDispatch()
     {
         parent::preDispatch();
@@ -46,7 +49,10 @@ class Pixelpin_Connect_AccountController extends Mage_Core_Controller_Front_Acti
             $this->setFlag('', 'no-dispatch', true);
         }
     }    
-		
+	
+	/**
+	 * User info action.
+	 */
     public function pixelpinAction()
     {   
 		$userInfo = Mage::getSingleton('pixelpin_connect/Pixelpin_userinfo')
