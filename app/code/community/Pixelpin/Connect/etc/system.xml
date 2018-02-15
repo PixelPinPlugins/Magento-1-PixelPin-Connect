@@ -124,7 +124,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><ppsso_customise>1</ppsso_customise></depends>
+                            <depends>
+                                <ppsso_customise>1</ppsso_customise>
+                                <enabled>1</enabled>
+                            </depends>
                         </ppsso_size>
                         <ppsso_colour translate="label" module="pixelpin_connect">
                             <label>Log In Button colour</label>
@@ -134,7 +137,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><ppsso_customise>1</ppsso_customise></depends>
+                            <depends>
+                                <ppsso_customise>1</ppsso_customise>
+                                <enabled>1</enabled>
+                            </depends>
                         </ppsso_colour>
                         <ppsso_show_text translate="label" module="pixelpin_connect">
                             <label>Do you want the button to contain text?</label>
@@ -144,7 +150,10 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><ppsso_customise>1</ppsso_customise></depends>
+                            <depends>
+                                <ppsso_customise>1</ppsso_customise>
+                                <enabled>1</enabled>
+                            </depends>
                         </ppsso_show_text>
                         <login_button_text translate="label" module="pixelpin_connect">
                             <label>Log In Button Text</label>
@@ -153,7 +162,11 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><ppsso_show_text>1</ppsso_show_text></depends>
+                            <depends>
+                                <ppsso_customise>1</ppsso_customise>
+                                <enabled>1</enabled>
+                                <ppsso_show_text>1</ppsso_show_text>
+                            </depends>
                         </login_button_text>
                         <register_button_text translate="label" module="pixelpin_connect">
                             <label>Register Button Text</label>
@@ -162,7 +175,11 @@
                             <show_in_default>1</show_in_default>
                             <show_in_website>1</show_in_website>
                             <show_in_store>1</show_in_store>
-                            <depends><ppsso_show_text>1</ppsso_show_text></depends>
+                            <depends>
+                                <ppsso_customise>1</ppsso_customise>
+                                <enabled>1</enabled>
+                                <ppsso_show_text>1</ppsso_show_text>
+                            </depends>
                         </register_button_text>
                     </fields>
                 </pixelpin_connect_pixelpin>  
