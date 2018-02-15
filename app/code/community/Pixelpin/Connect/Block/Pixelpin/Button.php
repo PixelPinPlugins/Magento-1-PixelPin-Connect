@@ -47,6 +47,14 @@ class Pixelpin_Connect_Block_Pixelpin_Button extends Mage_Core_Block_Template
 	 * @var $userInfo 
 	 */
     protected $userInfo = null;
+
+
+	/**
+	 * /Model/Pixelpin/PpssoButton.php
+	 * 
+	 * @var $button
+	 */
+	protected $button = null;
 	
 	/**
 	 * Constructor. Set variables and template.
@@ -57,6 +65,8 @@ class Pixelpin_Connect_Block_Pixelpin_Button extends Mage_Core_Block_Template
         parent::_construct();
 
         $this->client = Mage::getSingleton('pixelpin_connect/pixelpin_client');
+        $this->button = Mage::getSingleton('pixelpin_connect/pixelpin_ppsso');
+        
         if(!($this->client->isEnabled())) {
             return;
         }
@@ -76,41 +86,23 @@ class Pixelpin_Connect_Block_Pixelpin_Button extends Mage_Core_Block_Template
 
         $this->setTemplate('pixelpin/connect/pixelpin/button.phtml');
     }
-	
-	/**
-	 * Gets the href for the pixelpin sso button.
-	 * 
-	 * Used in the setTemplate. 
-	 * 
-	 * @return string.
-	 */
-    protected function _getButtonUrl()
+
+    protected function _getButton()
     {
         if(empty($this->userInfo)) {
-            return $this->client->createAuthUrl();
+            $url =  $this->client->createAuthUrl();
         } else {
-            return $this->getUrl('connect/pixelpin/disconnect');
-        }
-    }
-	
-	/**
-	 * Gets the text for the pixelpin sso button.
-	 * 
-	 * Used in the setTemplate. 
-	 * 
-	 * @return string.
-	 */
-    protected function _getButtonText()
-    {
-        if(empty($this->userInfo)) {
+            $url =  $this->getUrl('connect/pixelpin/disconnect');
+		}
+
+		if(empty($this->userInfo)) {
             if(!($text = Mage::registry('pixelpin_connect_button_text'))){
-                $text = $this->__('Connect to PixelPin');
+                $text = $this->__('Connect to');
             }
         } else {
-            $text = $this->__('Disconnect from PixelPin');
+            $text = $this->__('Disconnect from');
         }
-        
-        return $text;
-    }
 
+        return $this->button->_getButton($url, $text);
+	}
 }

@@ -34,6 +34,7 @@
 
 class Pixelpin_Connect_Block_Pixelpin_Account extends Mage_Core_Block_Template
 {
+	
 	/**
 	 * /Model/Pixelpin/Client.php
 	 * 
@@ -46,7 +47,14 @@ class Pixelpin_Connect_Block_Pixelpin_Account extends Mage_Core_Block_Template
 	 * 
 	 * @var $userInfo 
 	 */
-    protected $userInfo = null;
+	protected $userInfo = null;
+	
+	/**
+	 * /Model/Pixelpin/PpssoButton.php
+	 * 
+	 * @var $button
+	 */
+	protected $button = null;
 
 	/**
 	 * Constructor. Set variables and template.
@@ -57,6 +65,8 @@ class Pixelpin_Connect_Block_Pixelpin_Account extends Mage_Core_Block_Template
         parent::_construct();
 
         $this->client = Mage::getSingleton('pixelpin_connect/pixelpin_client');
+		$this->button = Mage::getSingleton('pixelpin_connect/pixelpin_ppsso');
+
         if(!($this->client->isEnabled())) {
             return;
         }
@@ -112,6 +122,24 @@ class Pixelpin_Connect_Block_Pixelpin_Account extends Mage_Core_Block_Template
     protected function _getName()
     {
         return $this->userInfo->given_name;
-    }
+	}
+	
+	protected function _getButton()
+    {
+		if(empty($this->userInfo)) {
+            $url =  $this->client->createAuthUrl();
+        } else {
+            $url =  $this->getUrl('connect/pixelpin/disconnect');
+		}
 
+		if(empty($this->userInfo)) {
+            if(!($text = Mage::registry('pixelpin_connect_button_text'))){
+                $text = $this->__('Connect to');
+            }
+        } else {
+            $text = $this->__('Disconnect from');
+        }
+		
+        return $this->button->_getButton($url, $text);
+	}
 }

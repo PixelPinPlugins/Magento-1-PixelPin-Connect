@@ -45,6 +45,8 @@
         <customer>
 	        <pixelpin_connect_pixelpin>
                 <enabled>0</enabled>
+                <ppsso_customise>0</ppsso_customise>
+                <ppsso_show_text>0</ppsso_show_text>
             </pixelpin_connect_pixelpin>			
         </customer>
     </default>

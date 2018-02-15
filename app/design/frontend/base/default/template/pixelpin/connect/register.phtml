@@ -43,7 +43,7 @@
                 <div class="fieldset">
                     <h2 class="legend"><?php echo $this->__('Pixelpin Connect') ?></h2>
                     <p class="form-instructions"><?php echo $this->__('Not registered? If you have a PixelPin account already, you can register with this website without needing to fill out those time consuming registration forms! If you don\'t have a PixelPin account, sign up to PixelPin using this button too! And use your PixelPin account on other websites in the future.'); ?></p>
-                    <p><?php echo $this->getChildHtml('pixelpin_connect_checkout_pixelpin_button')?></p>
+                    <p><?php  echo $this->_getButton()['registerButton']; ?></p>
                 </div>
             </div>
             <?php endif; ?>

@@ -258,7 +258,8 @@ class Pixelpin_Connect_Model_Pixelpin_Client
 	 */
     protected function fetchAccessToken()
     {
-        if(empty($_REQUEST['code'])) {
+        $code = Mage::app()->getRequest()->getParam('code');
+        if(empty($code)) {
             throw new Exception(
                 Mage::helper('pixelpin_connect')
                     ->__('Unable to retrieve access code.')
@@ -269,7 +270,7 @@ class Pixelpin_Connect_Model_Pixelpin_Client
             self::OAUTH2_TOKEN_URI,
             'POST',
             array(
-                'code' => $_REQUEST['code'],
+                'code' => Mage::app()->getRequest()->getParam('code'),
                 'redirect_uri' => $this->redirectUri,
                 'client_id' => $this->clientId,
                 'client_secret' => $this->clientSecret,
@@ -315,7 +316,6 @@ class Pixelpin_Connect_Model_Pixelpin_Client
                 );
         }
         $response = $client->request($method);
-        Mage::log($response->getStatus().' - '. $response->getBody());
         $decoded_response = json_decode($response->getBody());
 
         if($response->isError()) {
@@ -328,7 +328,7 @@ class Pixelpin_Connect_Model_Pixelpin_Client
                         ->__('Unspecified OAuth error occurred.');
                 }
 
-                throw new Pixelpin_Connect_PixelpinOAuthException($message);
+                throw new Exception($message);
             } else {
                 $message = sprintf(
                     Mage::helper('pixelpin_connect')
@@ -405,6 +405,3 @@ class Pixelpin_Connect_Model_Pixelpin_Client
     }
 
 }
-
-class Pixelpin_Connect_PixelpinOAuthException extends Exception
-{}

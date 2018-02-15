@@ -50,11 +50,7 @@
                                 <p class="form-instructions"><?php echo $this->__('Not registered? If you have a PixelPin account already, you can register with this website without needing to fill out those time consuming registration forms! If you don\'t have a PixelPin account, sign up to PixelPin using this button too! And use your PixelPin account on other websites in the future.'); ?></p>
                                 <br>
                                 <div class="clearer">
-                                    <div class="pixelpin-connect-pixelpin">
-                                        <div class="pixelpin-connect-pixelpin-inner">
-                                            <a href="<?php echo $this->escapeUrl($this->_getButtonUrl()); ?>">Register Using PixelPin</a>
-                                        </div>
-                                    </div>
+                                    <?php echo $this->_getButton()['registerButton'] ?>
                                 </div>
                                 <br>
                             </div>
@@ -72,7 +68,7 @@
                             <div class="pixelpin-connect-login-lower-pixelpin">
                                 <p class="form-instructions"><?php echo $this->__('If you already registered with PixelPin, you can use your picture to login to our site.'); ?></p>
                                 <br>
-                                <?php echo $this->getChildHtml('pixelpin_connect_pixelpin_login_button'); ?>
+                                <?php echo $this->_getButton()['loginButton']; ?>
                             </div>
                             <?php endif; ?>
                         </div>      

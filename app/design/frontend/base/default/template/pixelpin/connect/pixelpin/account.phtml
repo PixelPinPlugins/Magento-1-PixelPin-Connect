@@ -72,7 +72,7 @@
 				<h5>If you have registered to our site using PixelPin and want to disconnect PixelPin from your store account, make sure you retrieve <a href="/customer/account/forgotpassword/" target="_blank">a new password</a> before disconnecting your account.</h5>
                 <br>
                 <div class="col-4">
-                    <?php echo $this->getChildHtml('pixelpin_connect_account_pixelpin_button'); ?>
+                    <?php echo $this->_getButton()['connectButton']; ?>
                 </div>
 				
             </div>
@@ -87,7 +87,7 @@
 				</p>
 				<br>
 				<div class="col-2">
-					<?php echo $this->getChildHtml('pixelpin_connect_account_pixelpin_button'); ?>
+					<?php echo $this->_getButton()['connectButton']; ?>
 				</div>
 			</div>
         </div>

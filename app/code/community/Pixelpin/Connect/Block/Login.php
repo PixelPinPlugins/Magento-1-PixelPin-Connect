@@ -64,7 +64,14 @@ class Pixelpin_Connect_Block_Login extends Mage_Core_Block_Template
 	 * 
 	 * @var $client 
 	 */
-    protected $client = null;
+	protected $client = null;
+	
+	/**
+	 * /Model/Pixelpin/PpssoButton.php
+	 * 
+	 * @var $button
+	 */
+	protected $button = null;
 	
 	/**
 	 * Constructor. Set variables and template.
@@ -75,7 +82,8 @@ class Pixelpin_Connect_Block_Login extends Mage_Core_Block_Template
     protected function _construct() {
         parent::_construct();
 
-        $this->client = Mage::getSingleton('pixelpin_connect/pixelpin_client');
+		$this->client = Mage::getSingleton('pixelpin_connect/pixelpin_client');
+		$this->button = Mage::getSingleton('pixelpin_connect/pixelpin_ppsso');
 
         if( !$this->_pixelpinEnabled()) 
             return;
@@ -142,21 +150,17 @@ class Pixelpin_Connect_Block_Login extends Mage_Core_Block_Template
     protected function _pixelpinEnabled()
     {
         return $this->client->isEnabled();
-    }
+	}
 	
-	/**
-	 * Gets the href for the pixelpin sso button.
-	 * 
-	 * Used in the setTemplate. 
-	 * 
-	 * @return string.
-	 */
-    protected function _getButtonUrl()
+	protected function _getButton()
     {
+        //href
         if(empty($this->userInfo)) {
-            return $this->client->createAuthUrl();
+            $url =  $this->client->createAuthUrl();
         } else {
-            return $this->getUrl('connect/pixelpin/disconnect');
+            $url =  $this->getUrl('connect/pixelpin/disconnect');
         }
-    }
+
+        return $this->button->_getButton($url, null);
+	}
 }

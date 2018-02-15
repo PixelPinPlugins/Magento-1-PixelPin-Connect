@@ -57,11 +57,7 @@ class Pixelpin_Connect_Model_Pixelpin_Userinfo
 
             try{
                 $this->client->setAccessToken($connectTtoken);
-                $this->userInfo = $this->client->api('userinfo'); 
-
-            }  catch (Pixelpin_Connect_PixelpinOAuthException $e) {
-                $helper->disconnect($customer);
-                Mage::getSingleton('core/session')->addNotice($e->getMessage());                
+                $this->userInfo = $this->client->api('userinfo');                 
             } catch(Exception $e) {
                 $helper->disconnect($customer);
                 Mage::getSingleton('core/session')->addError($e->getMessage());
